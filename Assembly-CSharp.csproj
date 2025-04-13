@@ -94,15 +94,13 @@
     <Compile Include="Assets\LoadResources\Suriyun\Scripts\AnimatorController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
-    <Compile Include="Assets\GM.cs" />
     <Compile Include="Assets\Scripts\UI\Ext\Room\RoomUserItem.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
-    <Compile Include="Assets\Scripts\Main\Camera\ThirdPersonCamera.cs" />
     <Compile Include="Assets\Scripts\Main\GameStateMachine\Ext\RoomGameState.cs" />
     <Compile Include="Assets\Scripts\Main\Character\ClientPlayerInfo.cs" />
     <Compile Include="Assets\Scripts\Main\Character\CharacterManager.cs" />
-    <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Lock.cs" />
     <Compile Include="Assets\Scripts\Main\Behavior\ConfBTCShape.cs" />
+    <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Lock.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\Scripts\Main\Base\CAP_Extensions.cs" />
@@ -129,8 +127,8 @@
     <Compile Include="Assets\Scripts\UI\Ext\Loading_UI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Main\Behavior\BTSelectorNode.cs" />
-    <Compile Include="Assets\Scripts\Main\Base\Effect\EffectManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\Scripts\Main\Base\Effect\EffectManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Main\Base\Attribute\Bubble_NameAttribute.cs" />
     <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Loading.cs" />
@@ -145,6 +143,7 @@
     <Compile Include="Assets\Scripts\Main\Base\CAP_SceneManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\UI\Ext\RoomMain_UI.cs" />
+    <Compile Include="Assets\Scripts\Main\Camera\CameraManager.cs" />
     <Compile Include="Assets\Scripts\UI\Ext\Room\CreateRoom_PopupUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
@@ -186,7 +185,6 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
-    <None Include="Assets\SciFiHeroPBR\SRP\HowToTestSRPs.txt" />
     <None Include="Assets\SciFiHeroPBR\Shader\PBRMaskTint.shader" />
     <None Include="Assets\LoadResources\Suriyun\README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
