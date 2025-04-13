@@ -1,0 +1,95 @@
+﻿using System.Collections;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GOtPoolManager : Singleton<GOtPoolManager>
+{
+    private ConcurrentDictionary<string, Stack<RecycleObject>> _poolDictionary = new ConcurrentDictionary<string, Stack<RecycleObject>>();
+    
+    public void Init()
+    {
+        // Initialize the pool manager
+    }
+    
+    public T Get<T>(string prefabName) where T : RecycleObject
+    {
+        RecycleObject recycleObject = null;
+        if (_poolDictionary.TryGetValue(prefabName, out Stack<RecycleObject> pool))
+        {
+            if (pool.Count > 0)
+            {
+                recycleObject = pool.Pop();
+            }
+        }
+        if (recycleObject == null)
+        {
+            GameObject prefab = Resources.Load<GameObject>(prefabName);
+            if (prefab != null)
+            {
+                GameObject instance = Object.Instantiate(prefab);
+                recycleObject = instance.GetComponent<RecycleObject>();
+                if (recycleObject == null)
+                {
+                    Debug.LogError($"Prefab {prefabName} does not have a RecycleObject component.");
+                    return null;
+                }
+            }
+            else
+            {
+                Debug.LogError($"Prefab {prefabName} not found.");
+                return null;
+            }
+        }
+        recycleObject.ObjectName = prefabName;
+        recycleObject.gameObject.SetActive(true);
+        recycleObject.transform.SetParent(null);
+        return recycleObject as T;
+    }
+
+    public IEnumerator GetAsync<T>(string prefabName , System.Action<T> callback) where T : RecycleObject
+    {
+         RecycleObject recycleObject = null;
+        if (_poolDictionary.TryGetValue(prefabName, out Stack<RecycleObject> pool))
+        {
+            if (pool.Count > 0)
+            {
+                recycleObject = pool.Pop();
+            }
+        }
+        if (recycleObject == null)
+        {
+            ResourceRequest prefab = Resources.LoadAsync<GameObject>(prefabName);
+            yield return prefab;
+            GameObject instance = Object.Instantiate(prefab.asset as GameObject);
+            recycleObject = instance.GetComponent<RecycleObject>();
+            if (recycleObject == null)
+            {
+                Debug.LogError($"Prefab {prefabName} does not have a RecycleObject component.");
+            }
+        }
+        recycleObject.ObjectName = prefabName;
+        recycleObject.gameObject.SetActive(true);
+        recycleObject.transform.SetParent(null);
+    }
+
+    
+    public void Return(RecycleObject obj)
+    {
+        string prefabName = obj.ObjectName;
+        obj.gameObject.SetActive(false);
+        obj.transform.SetParent(null);
+        obj.Recycle();
+        if (_poolDictionary.TryGetValue(prefabName, out Stack<RecycleObject> pool))
+        {
+            pool.Push(obj);
+        }
+        else
+        {
+            Stack<RecycleObject> newPool = new Stack<RecycleObject>();
+            newPool.Push(obj);
+            _poolDictionary[prefabName] = newPool;
+        }
+    }
+    
+}
