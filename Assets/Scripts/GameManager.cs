@@ -80,7 +80,10 @@ public class GameManager : MonoBehaviour
     
     private void FixedUpdate()
     {
-       
+        if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.DoFixedUpdate(Time.fixedDeltaTime);
+        }
     }
     
     private void Update()
@@ -96,6 +99,11 @@ public class GameManager : MonoBehaviour
         if (EffectManager.Instance != null)
         {
             EffectManager.Instance.DoUpdate(Time.deltaTime);
+        }
+        
+        if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.DoUpdate(Time.deltaTime);
         }
     }
 

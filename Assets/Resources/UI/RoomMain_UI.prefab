@@ -122,10 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bcd7011eeac78a438e01decaff386cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomListRoot: {fileID: 0}
-  createRoomBtn: {fileID: 0}
-  joinRoomBtn: {fileID: 0}
-  refreshRoomListBtn: {fileID: 0}
+  beginBtn: {fileID: 3425621208682054705}
 --- !u!1 &3436864408764447232
 GameObject:
   m_ObjectHideFlags: 0

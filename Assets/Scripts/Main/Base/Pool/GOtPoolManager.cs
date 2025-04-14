@@ -71,6 +71,7 @@ public class GOtPoolManager : Singleton<GOtPoolManager>
         recycleObject.ObjectName = prefabName;
         recycleObject.gameObject.SetActive(true);
         recycleObject.transform.SetParent(null);
+        callback?.Invoke(recycleObject as T);
     }
 
     

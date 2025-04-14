@@ -16,7 +16,6 @@ public class CreateRoom_PopupUI : UIBase
         {
             string roomName = _roomNameInput.text;
             int maxPlayerCount = _maxPlayerCountDropdown.value;
-            GameManager.GetUIManager().ShowLockUI();
             // RoomManager.Instance.CreateRoom(roomName, maxPlayerCount);
         });
         _closeButton.onClick.AddListener(() =>
@@ -47,7 +46,6 @@ public class CreateRoom_PopupUI : UIBase
         else
         {
             Debug.Log(obj.Value1);
-            GameManager.GetUIManager().HideLockUI();
         }
         
     }

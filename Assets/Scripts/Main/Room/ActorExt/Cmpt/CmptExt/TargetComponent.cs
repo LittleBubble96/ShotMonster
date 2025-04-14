@@ -5,6 +5,9 @@ public class TargetComponent : ActorComponent
     public bool IsTargeting { get; private set; }
     public int TargetActorId { get; private set; }
     public int LastTargetActorId { get; private set; }
+    
+    public float TargetDuration { get;  set; }
+    public float TargetTime { get;  set; }
 
     public void SetTargeting(bool isTargeting)
     {

@@ -88,24 +88,6 @@ public class UIManager
         HideUI_Internal(ui);
     }
     
-    public void ShowLockUI()
-    {
-        UIInfo uiInfo = FindUiInfo<Lock_UI>();
-        if (!_lockUI)
-        {
-            _lockUI = CreateUI(uiInfo);
-        }
-        _lockUI.gameObject.SetActive(true);
-    }
-    
-    public void HideLockUI()
-    {
-        if (_lockUI)
-        {
-            _lockUI.gameObject.SetActive(false);
-        }
-    }
-    
     public void ShowLoadingUI()
     {
         UIInfo uiInfo = FindUiInfo<Loading_UI>();

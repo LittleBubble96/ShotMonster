@@ -23,15 +23,14 @@ public class BTPetPreBhvTN : BTTaskNode
             findSucc = false;
             return;
         }
-        // Actor actor = RoomManager.Instance.GetActor(targetComponent.TargetActorId);
-        // if (actor== null)
-        // {
-        //     findSucc = false;
-        //     return;
-        // }
+        Actor actor = RoomManager.Instance.GetActorById(targetComponent.TargetActorId);
+        if (actor== null)
+        {
+            findSucc = false;
+            return;
+        }
         findSucc = true;
         
-        // behaviorTree.GetAIController().SetTargetPosition(actor.GetTfPosition());
         behaviorTree.GetAIController().AgentStart();
     }
 
@@ -55,19 +54,19 @@ public class BTPetPreBhvTN : BTTaskNode
         {
             return BtNodeResult.Failed;
         }
-        // Actor actor = RoomManager.Instance.GetActor(targetComponent.TargetActorId);
-        // if (actor== null)
-        // {
-        //     return BtNodeResult.Failed;
-        // }
-        //
-        // float distance = Vector3.Distance(behaviorTree.GetAIController().transform.position, actor.GetTfPosition());
+        Actor actor = RoomManager.Instance.GetActorById(targetComponent.TargetActorId);
+        if (actor== null)
+        {
+            return BtNodeResult.Failed;
+        }
+        behaviorTree.GetAIController().SetTargetPosition(actor.GetPosition());
+        float distance = Vector3.Distance(behaviorTree.GetAIController().transform.position, actor.GetPosition());
         //如果距离小于停止距离，则停止
-        // if (distance < behaviorTree.GetAIController().GetAttackDistance())
-        // {
-        //     behaviorTree.GetAIController().AgentStop();
-        //     return BtNodeResult.Succeeded;
-        // }
+         if (distance < behaviorTree.GetAIController().GetAttackDistance())
+         {
+             behaviorTree.GetAIController().AgentStop();
+             return BtNodeResult.Succeeded;
+         }
         return BtNodeResult.InProgress;
     }
 

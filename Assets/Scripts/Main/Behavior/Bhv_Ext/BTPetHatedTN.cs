@@ -13,10 +13,14 @@ public class BTPetHatedTN : BTTaskNode
     protected override void OnBegin()
     {
         TargetComponent targetComponent = behaviorTree.GetAIController().TryOrAddActorComponent<TargetComponent>();
-        targetComponent.SetTargeting(true);
-        
-        //发送消息
-        // ClientRequestFunc.SendFindPetTargetRequest(behaviorTree.GetAIController().GetActorId(), targetComponent.TargetActorId);
+        findTargetTime = findTargetInterval;
+        //toDO 先 直接设置为主角
+        Actor actor = GetTargetActor();
+        if (actor == null)
+        {
+            return;
+        }
+        targetComponent.SetTargetActorId(actor.GetActorId());
     }
 
     protected override void OnEnd()
@@ -26,24 +30,30 @@ public class BTPetHatedTN : BTTaskNode
 
     protected override BtNodeResult OnExecute(float deltaTime)
     {
-        TargetComponent targetComponent = behaviorTree.GetAIController().GetActorComponent<TargetComponent>();
-        if (targetComponent.IsTargeting)
-        {
-            return BtNodeResult.InProgress;
-        }
-
-        findTargetTime = targetComponent.TargetIsValid() ? 0 : findTargetTime + deltaTime;
+        findTargetTime -= deltaTime;
         if (findTargetTime > 0)
         {
-            findTargetTime -= deltaTime;
             return BtNodeResult.InProgress;
         }
-        findTargetTime = 0;
+        findTargetTime = findTargetInterval;
+        TargetComponent targetComponent = behaviorTree.GetAIController().GetActorComponent<TargetComponent>();
+        Actor actor = GetTargetActor();
+        if (actor == null)
+        {
+            return BtNodeResult.Failed;
+        }
+        targetComponent.SetTargetActorId(actor.GetActorId());
+        targetComponent = behaviorTree.GetAIController().GetActorComponent<TargetComponent>();
         return targetComponent.TargetIsValid() ? BtNodeResult.Succeeded : BtNodeResult.Failed;
     }
 
     protected override void OnParseParams(string[] args)
     {
         
+    }
+
+    private Actor GetTargetActor()
+    {
+        return RoomManager.Instance.GetMainPlayer();
     }
 }

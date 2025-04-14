@@ -7,9 +7,8 @@ using Vector3 = UnityEngine.Vector3;
 public enum EActorState
 {
     None,
-    WaitSync, // 创建好时  等待更新
-    Syncing,  // 同步位置到服务器
-    Ready,    // 同步完成  可以操作
+    Play,
+    WaitDestroy,
 }
 
 public enum EActorRoleType
@@ -36,26 +35,47 @@ public enum CAP_ControlMode
 public class Actor : RecycleObject
 {
     private EActorState actorState = EActorState.None;
+    private EActorRoleType actorRoleType = EActorRoleType.None;
 
+    private int actorId = 0;
+    /// 角色配置ID
+    protected int ConfigId = 0;
     [SerializeField] protected Animator m_animator = null;
 
+    
     public Animator GetAnimator()
     {
         return m_animator;
     }
     
+    public int GetActorId()
+    {
+        return actorId;
+    }
+    
 
-    public void InitActor()
+    public void InitActor(int id ,EActorRoleType roleType , int configId)
     {
         // Init Actor
-        actorState = EActorState.WaitSync;
-       
+        actorState = EActorState.Play;
+        actorRoleType = roleType;
+        ConfigId = configId;
+        actorId = id;
         OnInit();
     }
    
 
-    public virtual void DoFixedUpdate()
+    public virtual void DoFixedUpdate(float dt)
     {
+    }
+    
+    public virtual void DoUpdate(float dt)
+    {
+        // Update Actor
+        if (actorState == EActorState.Play)
+        {
+            UpdateSystem(dt);
+        }
     }
 
     //客户端控制
@@ -78,7 +98,7 @@ public class Actor : RecycleObject
 
     public EActorRoleType GetActorRoleType()
     {
-        return  EActorRoleType.None;
+        return actorRoleType;
     }
     
     
@@ -126,6 +146,28 @@ public class Actor : RecycleObject
 
     #endregion
 
+    #region 系统
+
+    protected List<SystemBase> m_systems = new List<SystemBase>();
+    
+    protected void RegisterSystem<T>() where T : SystemBase, new()
+    {
+        SystemBase system = new T();
+        system.Init(this);
+        m_systems.Add(system);
+    }
+
+    protected void UpdateSystem(float dt)
+    {
+        foreach (var system in m_systems)
+        {
+            system.OnExecute(dt);
+        }
+    }
+
+
+    #endregion
+
     #region 销毁
     
     public void DestroyActor()
@@ -142,6 +184,55 @@ public class Actor : RecycleObject
         Destroy(gameObject);
     }
     
+
+    #endregion
+
+    #region 动画
+
+    public void SetBool(string name, bool value)
+    {
+        if (m_animator != null)
+        {
+            m_animator.SetBool(name, value);
+        }
+    }
+    
+    public void SetFloat(string name, float value)
+    {
+        if (m_animator != null)
+        {
+            m_animator.SetFloat(name, value);
+        }
+    }
+    
+    public void SetLayerWeight(int layer, float weight)
+    {
+        if (m_animator != null)
+        {
+            m_animator.SetLayerWeight(layer, weight);
+        }
+    }
+    
+
+    #endregion
+
+    #region 接口
+
+    public float GetDistance(Actor actor)
+    {
+        if (actor == null)
+        {
+            return 0;
+        }
+        return Vector3.Distance(transform.position, actor.transform.position);
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+    
+
 
     #endregion
 }

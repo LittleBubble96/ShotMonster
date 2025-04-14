@@ -6,6 +6,7 @@ public class AIController : Actor
 {
     //行为树
     protected BehaviorTree behaviorTree;
+    private MonsterConfigItem configItem;
     //Nav
     [SerializeField]
     private NavMeshAgent navMeshAgent;
@@ -15,18 +16,19 @@ public class AIController : Actor
     protected override void OnInit()
     {
         base.OnInit();
+        configItem = MonsterConfig.GetConfigItem(ConfigId);
         behaviorTree = new BehaviorTree();
-        behaviorTree.Init(new BTGenInfo(0),this);
+        behaviorTree.Init(new BTGenInfo(configItem.AiId),this);
         //停止距离 为 攻击距离
         // navMeshAgent.stoppingDistance = GetAttackDistance();
     }
 
-    public override void DoFixedUpdate()
+    public override void DoFixedUpdate(float dt)
     {
-        base.DoFixedUpdate();
+        base.DoFixedUpdate(dt);
         if (behaviorTree != null)
         {
-            behaviorTree.Execute(Time.fixedDeltaTime);
+            behaviorTree.Execute(dt);
         }
          // lerp 旋转
         Vector3 targetDir = navMeshAgent.desiredVelocity;
@@ -36,7 +38,7 @@ public class AIController : Actor
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 10f);
         }
         float speed = navMeshAgent.velocity.magnitude;
-        // GetAnimationController().SetFloat("MoveSpeedPet",speed);
+        SetFloat("MoveSpeedPet",speed);
     }
 
     
@@ -50,6 +52,17 @@ public class AIController : Actor
     public float GetAttackHitTime()
     {
         return attackHitTime;
+    }
+    
+    //攻击距离
+    public float GetAttackDistance()
+    {
+        return configItem.AttackRange;
+    }
+    
+    public float GetAttackInterval()
+    {
+        return configItem.AttackInterval;
     }
     
     public void AgentStop()

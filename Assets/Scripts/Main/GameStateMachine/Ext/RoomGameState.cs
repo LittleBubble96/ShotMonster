@@ -13,8 +13,6 @@ public class RoomGameState : GameStateBase
     private IEnumerator OnEnterAsync_Internal()
     {
         
-        //更新房间详细信息
-        GameManager.GetUIManager().ShowLockUI();
         // yield return new WaitUntil(() => RoomManager.Instance.RoomState == ERoomState.Loading);
         GameManager.GetAppEventDispatcher().BroadcastListener(EventName.EVENT_LoadingUIProcess, 0.3f);
         //加载场景 0.3 - 0.6
@@ -27,8 +25,11 @@ public class RoomGameState : GameStateBase
         // {
         //     GameManager.GetAppEventDispatcher().BroadcastListener(EventName.EVENT_LoadingUIProcess, 0.6f + 0.3f * process);
         // });
-        //通知创建 当前角色
-        // RoomManager.Instance.RoomState = ERoomState.Playing;
+        //通知创建 当前角色 并初始化相机
+        RoomManager.Instance.CreateActor(-1,EActorRoleType.Player,"Character/C1",Vector3.zero, Quaternion.identity, (actor) =>
+        {
+            RoomManager.Instance.SetMainPlayer(actor);
+        });
     }
 
 

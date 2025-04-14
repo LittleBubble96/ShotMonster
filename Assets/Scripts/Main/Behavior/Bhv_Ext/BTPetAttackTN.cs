@@ -14,11 +14,11 @@ public class BTPetAttackTN : BTTaskNode
 
     protected override void OnBegin()
     {
-        // attackInterval = behaviorTree.GetAIController().GetAttackInterval();
+        attackInterval = behaviorTree.GetAIController().GetAttackInterval();
         //播放攻击动画
         attackAnimTime = behaviorTree.GetAIController().GetAttackAnimDuration();
         attackHitTime = behaviorTree.GetAIController().GetAttackHitTime();
-        // behaviorTree.GetAIController().GetAnimationController().SetBool("Attack",true);
+        behaviorTree.GetAIController().SetBool("Attack",true);
         Debug.Log("[Attack] Set Attack Animation: " + attackAnimTime + "attackInterval: " + attackInterval + " attackHitTime: " + attackHitTime);
     }
 
@@ -38,7 +38,7 @@ public class BTPetAttackTN : BTTaskNode
                 attackAnimTime -= deltaTime;
                 if (attackAnimTime <= 0)
                 {
-                    // behaviorTree.GetAIController().GetAnimationController().SetBool("Attack",false);
+                    behaviorTree.GetAIController().SetBool("Attack",false);
                 }
             }
             //打击时间未到
@@ -50,17 +50,15 @@ public class BTPetAttackTN : BTTaskNode
                     TargetComponent target = behaviorTree.GetAIController().GetActorComponent<TargetComponent>();
                     if (target != null)
                     {
-                        // Actor targetActor = RoomManager.Instance.GetActor(target.TargetActorId);
-                        // Vector3 hitPos = GetAttackHitPosition(behaviorTree.GetAIController(),targetActor);
-                        // ClientRequestFunc.SendPetAttackRequest(behaviorTree.GetAIController().GetActorId(),
-                        //     target.TargetActorId,ConfigHelper.ConvertUnityVector3ToVector3(hitPos));
-                        // Debug.Log("[Attack] Send Pet Attack Request: " + behaviorTree.GetAIController().GetActorId() + " Target: " + target.TargetActorId);
+                        Actor targetActor = RoomManager.Instance.GetActorById(target.TargetActorId);
+                        Vector3 hitPos = GetAttackHitPosition(behaviorTree.GetAIController(),targetActor);
+                        //TODO : 发送攻击命中事件
                     }
                 }
             }
             return BtNodeResult.InProgress;
         }
-        // behaviorTree.GetAIController().GetAnimationController().SetBool("Attack",false);
+        behaviorTree.GetAIController().SetBool("Attack",false);
         return BtNodeResult.Succeeded;
     }
 
@@ -77,7 +75,7 @@ public class BTPetAttackTN : BTTaskNode
         Vector3 dir = targetPos - petPos;
         Ray ray = new Ray(petPos, dir);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, dir.magnitude + 1, LayerMaskMgr.BreakInteractiveLayerMask))
+        if (Physics.Raycast(ray, out hit, dir.magnitude + 1, LayerMaskMgr.PlayerLayerMask))
         {
             //Debug.Log("[Attack] Hit: " + hit.collider.name);
             return hit.point;
