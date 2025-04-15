@@ -24,7 +24,7 @@ public class MonsterSpawnConfig
                 new MonsterSpawnConfigItem()
                 { Id = 1, Name = "Point1", MonsterIds =new []{1,2}, 
                     RandomRadius = 1f,Position = new Vector3(-39, 0, -19), Rotation = new Vector3() ,
-                    ReSpawnTime = 3000f,
+                    ReSpawnTime = 30f,
                 }
             },
             {
@@ -32,7 +32,7 @@ public class MonsterSpawnConfig
                 new MonsterSpawnConfigItem()
                 {
                     Id = 2, Name = "Point2", MonsterIds =new []{1,2}, RandomRadius = 1f, Position = new Vector3(19f, 0f, 39f), Rotation = new Vector3() ,
-                    ReSpawnTime = 3000f,
+                    ReSpawnTime = 20f,
                 }
             }
             ,
@@ -41,7 +41,7 @@ public class MonsterSpawnConfig
                 new MonsterSpawnConfigItem()
                 {
                     Id = 3, Name = "Point3", MonsterIds =new []{1,2}, RandomRadius = 1f, Position = new Vector3(39f, 0f, 19f), Rotation = new Vector3() ,
-                    ReSpawnTime = 3000f,
+                    ReSpawnTime = 25f,
                 }
             }
         };

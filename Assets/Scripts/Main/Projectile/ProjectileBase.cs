@@ -17,6 +17,8 @@ public class ProjectileBase : RecycleObject
     public bool bNeedDestroy { get; private set; }
     
     private TrailRenderer[] m_trailRenderers;
+    
+    private int ownerLayerMask;
 
     public void Init(int id,int ownerId, ProjectileConfigItem configItem)
     {
@@ -35,6 +37,8 @@ public class ProjectileBase : RecycleObject
                 trailRenderer.Clear();
             }
         }
+        //检查自身到 起始位置的射线
+        CheckStartRay();
     }
     
 
@@ -84,13 +88,43 @@ public class ProjectileBase : RecycleObject
     
     private void CheckRay()
     {
-        Vector3 offset = new Vector3(0,-1f,0);
+        Vector3 offset = new Vector3(0,-0.5f,0);
         float distance = Vector3.Distance(transform.position, m_lastPos);
         Ray ray = new Ray(m_lastPos + offset, transform.position - m_lastPos);
         RaycastHit hit;
-        //忽略player层级 和 bullet层级
-        //int layerMask = ~1 << LayerMask.NameToLayer("Player") ;//| ~1 << LayerMask.NameToLayer("Bullet");
-        if (Physics.SphereCast(ray, 0.3f,out hit,distance))
+        //忽略 ownerLayerMask
+        int layerMask = ~(1 << ownerLayerMask);
+        if (Physics.SphereCast(ray, 0.3f,out hit,distance,layerMask))
+        {
+            if (hit.collider == null)
+            {
+                return;
+            }
+            
+            //TODO : 发送攻击命中事件
+            Actor targetActor = hit.collider.GetComponent<Actor>();
+            ProjectileManager.Instance.Hit(this, targetActor,hit);
+        }
+    }
+
+    private void CheckStartRay()
+    {
+        Actor ownerActor = RoomManager.Instance.GetActorById(OwnerActorId);
+        if (ownerActor == null)
+        {
+            return;
+        }
+        ownerLayerMask = ownerActor.gameObject.layer;
+        Vector3 offset = new Vector3(0,-0.5f,0);
+        Vector3 start = ownerActor.transform.position;
+        start.y = m_startPos.y;
+        start -= offset;
+        float distance = Vector3.Distance(start, m_startPos);
+        Ray ray = new Ray(start, m_startPos - start);
+        RaycastHit hit;
+        //忽略 ownerLayerMask
+        int layerMask = ~(1 << ownerLayerMask);
+        if (Physics.SphereCast(ray, 0.3f,out hit,distance,layerMask))
         {
             if (hit.collider == null)
             {

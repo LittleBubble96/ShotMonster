@@ -20,10 +20,13 @@ public class ProjectileManager : Singleton<ProjectileManager>
         {
             if (projectile != null)
             {
-                projectile.DoUpdate(dt);
                 if (projectile.bNeedDestroy)
                 {
                     destroyQueue.Enqueue(projectile);
+                }
+                else
+                {
+                    projectile.DoUpdate(dt);
                 }
             }
         }
@@ -109,7 +112,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         string hitEffectPath = ProjectileDefine.ProjectileResHitPath + projectile.GetHitEffectPath();
         if (!string.IsNullOrEmpty(hitEffectPath))
         {
-            EffectManager.Instance.PlayEffect(hitEffectPath, hit.point, Quaternion.LookRotation(hit.normal));
+            EffectManager.Instance.PlayEffect(hitEffectPath, FixedHitPoint(hit), Quaternion.LookRotation(hit.normal));
         }
         //TODO : 是否有 牌子可以 检测是否需要销毁
         DestroyProjectile(projectile);
@@ -119,6 +122,22 @@ public class ProjectileManager : Singleton<ProjectileManager>
         }
         //怪物掉血
         BuffFunc.AttachMonsterBaseDamage(projectile.GetOwnerActorId(),target.GetActorId());
+    }
+
+    private Vector3 FixedHitPoint(RaycastHit hit)
+    {
+        if (hit.collider == null)
+        {
+            return hit.point;
+        }
+
+        if (hit.collider is CapsuleCollider ca)
+        {
+            Vector3 hitPoint = hit.point;
+            hitPoint.y = ca.transform.position.y + ca.center.y;
+            return hitPoint;
+        }
+        return hit.point;
     }
 
     private int GenerateProjectileId()

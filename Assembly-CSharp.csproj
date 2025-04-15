@@ -119,8 +119,8 @@
      <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Cfg\BT_1001.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\BehaviorTree.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-     <Compile Include="Assets\GabrielAguiarProductions\Scripts\ParticleSystemController\SaveParticleSystemScript.cs" />
      <Compile Include="Assets\Scripts\Main\Projectile\ProjectileDefine.cs" />
+     <Compile Include="Assets\GabrielAguiarProductions\Scripts\ParticleSystemController\SaveParticleSystemScript.cs" />
      <Compile Include="Assets\Scripts\UI\Ext\Loading_UI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
      <Compile Include="Assets\Scripts\Main\Room\Monster\MonsterSpawnController.cs" />

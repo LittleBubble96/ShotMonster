@@ -54,7 +54,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.42
+  m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -75,6 +75,7 @@ MonoBehaviour:
   attackAnimDuration: 0.875
   attackHitTime: 0.6
   hurtAnimDuration: 0.5
+  deathAnimDuration: 1
 --- !u!195 &3493647638607616648
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -84,7 +85,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2528952179208613352}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -123,7 +124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5818257739549344241, guid: 26bc2984159d1de42bb4b27680704b5a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 5818257739549344241, guid: 26bc2984159d1de42bb4b27680704b5a, type: 3}
       propertyPath: m_LocalPosition.z

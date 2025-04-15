@@ -54,10 +54,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.64
-  m_Height: 2
+  m_Radius: 1.0371208
+  m_Height: 2.8
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0.030292511, y: 1.4, z: 0}
 --- !u!114 &6686207374421837396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,7 +85,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1209644433383592551}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.83
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -340,15 +340,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1209701748886549791, guid: 5c15e549927e2c341acfa58d6d6e829a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5753988
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 1209701748886549791, guid: 5c15e549927e2c341acfa58d6d6e829a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5753988
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 1209701748886549791, guid: 5c15e549927e2c341acfa58d6d6e829a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5753988
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 1209701748886549791, guid: 5c15e549927e2c341acfa58d6d6e829a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -356,7 +356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1209701748886549791, guid: 5c15e549927e2c341acfa58d6d6e829a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.33465
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 1209701748886549791, guid: 5c15e549927e2c341acfa58d6d6e829a, type: 3}
       propertyPath: m_LocalPosition.z

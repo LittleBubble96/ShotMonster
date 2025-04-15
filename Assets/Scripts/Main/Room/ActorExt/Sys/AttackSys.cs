@@ -68,6 +68,7 @@ public class AttackSys : SystemBase
 
             Vector3 dir = owner.transform.forward;
             dir =  attackPoint.localRotation * dir;
+            dir.y = 0;
             ProjectileManager.Instance.CreateProjectile(attackComponent.ProjectileConfigId,
                 attackPoint.position,
                 dir,attackComponent.GetActor().GetActorId()
