@@ -29,7 +29,8 @@ public class TargetSystem : SystemBase
         {
             for (int j = i + 1; j < actorList.Count; j++)
             {
-                if (actorList[sortedByDistance[i]].GetDistance(actorList[sortedByDistance[j]]) > actorList[sortedByDistance[j]].GetDistance(actorList[sortedByDistance[i]]))
+                if (Vector3.Distance(Owner.GetPosition(), actorList[sortedByDistance[i]].GetPosition()) >
+                    Vector3.Distance(Owner.GetPosition(), actorList[sortedByDistance[j]].GetPosition()))
                 {
                     (sortedByDistance[i], sortedByDistance[j]) = (sortedByDistance[j], sortedByDistance[i]);
                 }
@@ -39,10 +40,13 @@ public class TargetSystem : SystemBase
         for (int i = 0; i < sortedByDistance.Length; i++)
         {
             Actor targetActor = actorList[sortedByDistance[i]];
-            //射线检测 忽略 Player Monster Projectile
+            //忽略 Player和Projectile ，"Monster"层级
+            int layerMask = LayerMask.GetMask("Default");
+            
             Ray ray = new Ray(Owner.GetPosition(), targetActor.GetPosition() - Owner.GetPosition());
+            float distance = Vector3.Distance(Owner.GetPosition(), targetActor.GetPosition());
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Player", "Monster", "Projectile")))
+            if (Physics.Raycast(ray, out hit, distance, layerMask))
             {
                 //如果射线检测到的物体是目标物体
                 if (hit.collider)
@@ -52,7 +56,9 @@ public class TargetSystem : SystemBase
             }
             //如果没有障碍物
             targetComponent.SetTargetActorId(targetActor.GetActorId());
-            break;
+            return;
         }
+        //如果所有目标物体都有障碍物
+        targetComponent.SetTargetActorId(-1);
     }
 }

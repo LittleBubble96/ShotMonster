@@ -15,6 +15,7 @@ public class RoomGameState : GameStateBase
         
         // yield return new WaitUntil(() => RoomManager.Instance.RoomState == ERoomState.Loading);
         GameManager.GetAppEventDispatcher().BroadcastListener(EventName.EVENT_LoadingUIProcess, 0.3f);
+        RoomManager.Instance.RoomState = ERoomState.Loading;
         //加载场景 0.3 - 0.6
         yield return CAP_SceneManager.Instance.LoadScene("GameScene",null, (progress) =>
         {
@@ -30,6 +31,7 @@ public class RoomGameState : GameStateBase
         {
             RoomManager.Instance.SetMainPlayer(actor);
         });
+        RoomManager.Instance.RoomState = ERoomState.Playing;
     }
 
 

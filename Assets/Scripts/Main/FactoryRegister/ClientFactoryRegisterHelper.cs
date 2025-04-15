@@ -6,5 +6,6 @@ public partial class ClientFactoryRegisterHelper
         RegisterGameState();
         RegisterGameBhv();
         RegisterActorComponent();
+        RegisterBuff();
     }
 }

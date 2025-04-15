@@ -9,6 +9,7 @@ public enum EActorState
     None,
     Play,
     WaitDestroy,
+    Destroy,
 }
 
 public enum EActorRoleType
@@ -34,27 +35,31 @@ public enum CAP_ControlMode
 
 public class Actor : RecycleObject
 {
+    [SerializeField] protected Animator m_animator = null;
+
     private EActorState actorState = EActorState.None;
     private EActorRoleType actorRoleType = EActorRoleType.None;
 
     private int actorId = 0;
+
     /// 角色配置ID
     protected int ConfigId = 0;
-    [SerializeField] protected Animator m_animator = null;
-
     
+    protected float m_stateTimeCount = 0f;
+
+
     public Animator GetAnimator()
     {
         return m_animator;
     }
-    
+
     public int GetActorId()
     {
         return actorId;
     }
-    
 
-    public void InitActor(int id ,EActorRoleType roleType , int configId)
+
+    public void InitActor(int id, EActorRoleType roleType, int configId)
     {
         // Init Actor
         actorState = EActorState.Play;
@@ -63,18 +68,27 @@ public class Actor : RecycleObject
         actorId = id;
         OnInit();
     }
-   
+
 
     public virtual void DoFixedUpdate(float dt)
     {
     }
-    
+
     public virtual void DoUpdate(float dt)
     {
         // Update Actor
         if (actorState == EActorState.Play)
         {
             UpdateSystem(dt);
+        }
+
+        if (actorState == EActorState.WaitDestroy)
+        {
+            m_stateTimeCount -= dt;
+            if (m_stateTimeCount <= 0)
+            {
+                actorState = EActorState.Destroy;
+            }
         }
     }
 
@@ -84,35 +98,36 @@ public class Actor : RecycleObject
     {
         return actorState;
     }
-    
+
     public void SetActorState(EActorState state)
     {
         actorState = state;
         OnChangeState(state);
     }
-    
+
     protected virtual void OnChangeState(EActorState state)
     {
-        
+
     }
 
     public EActorRoleType GetActorRoleType()
     {
         return actorRoleType;
     }
-    
-    
-   
+
+
+
     protected virtual void OnInit()
     {
-        
+
     }
 
     #region 组件
 
     //逻辑组件
-    protected ConcurrentDictionary<Type,ActorComponent> m_actorComponents = new ConcurrentDictionary<Type, ActorComponent>();
-    
+    protected ConcurrentDictionary<Type, ActorComponent> m_actorComponents =
+        new ConcurrentDictionary<Type, ActorComponent>();
+
     public T GetActorComponent<T>() where T : ActorComponent
     {
         Type type = typeof(T);
@@ -120,9 +135,10 @@ public class Actor : RecycleObject
         {
             return m_actorComponents[type] as T;
         }
+
         return null;
     }
-    
+
     public T TryOrAddActorComponent<T>() where T : ActorComponent, new()
     {
         Type type = typeof(T);
@@ -149,7 +165,7 @@ public class Actor : RecycleObject
     #region 系统
 
     protected List<SystemBase> m_systems = new List<SystemBase>();
-    
+
     protected void RegisterSystem<T>() where T : SystemBase, new()
     {
         SystemBase system = new T();
@@ -169,7 +185,7 @@ public class Actor : RecycleObject
     #endregion
 
     #region 销毁
-    
+
     public void DestroyActor()
     {
         //销毁组件
@@ -177,13 +193,14 @@ public class Actor : RecycleObject
         {
             ClientFactory.Instance.GetActorComponentFactory().PutObject(component.Value);
         }
+
         m_actorComponents.Clear();
-        
-        
+
+
         //销毁Actor
         Destroy(gameObject);
     }
-    
+
 
     #endregion
 
@@ -196,7 +213,7 @@ public class Actor : RecycleObject
             m_animator.SetBool(name, value);
         }
     }
-    
+
     public void SetFloat(string name, float value)
     {
         if (m_animator != null)
@@ -205,6 +222,14 @@ public class Actor : RecycleObject
         }
     }
     
+    public void PlayAnimation(string name , float blendTime = 0.25f)
+    {
+        if (m_animator != null)
+        {
+            m_animator.CrossFade(name,blendTime,0,0f);
+        }
+    }
+
     public void SetLayerWeight(int layer, float weight)
     {
         if (m_animator != null)
@@ -212,7 +237,59 @@ public class Actor : RecycleObject
             m_animator.SetLayerWeight(layer, weight);
         }
     }
-    
+
+
+    #endregion
+
+    #region 属性
+
+    private Dictionary<Enum, object> m_attributes = new Dictionary<Enum, object>();
+
+    protected void AddAttribute(Enum name, object value)
+    {
+        if (m_attributes.ContainsKey(name))
+        {
+            m_attributes[name] = value;
+        }
+        else
+        {
+            m_attributes.Add(name, value);
+        }
+    }
+
+    public float GetFloatAttribute(Enum name)
+    {
+        if (m_attributes.ContainsKey(name))
+        {
+            return Convert.ToSingle(m_attributes[name]);
+        }
+
+        return 0;
+    }
+    public int GetIntAttribute(Enum name)
+    {
+        if (m_attributes.ContainsKey(name))
+        {
+            return Convert.ToInt32(m_attributes[name]);
+        }
+
+        return 0;
+    }
+
+    public float UpdateAttribute(Enum name, float value)
+    {
+        if (m_attributes.ContainsKey(name))
+        {
+            m_attributes[name] = value;
+        }
+        else
+        {
+            m_attributes.Add(name, value);
+        }
+
+        return value;
+    }
+
 
     #endregion
 
@@ -224,6 +301,7 @@ public class Actor : RecycleObject
         {
             return 0;
         }
+
         return Vector3.Distance(transform.position, actor.transform.position);
     }
 
@@ -231,8 +309,27 @@ public class Actor : RecycleObject
     {
         return transform.position;
     }
-    
 
+    public void Damage(int damage)
+    {
+        //TODO : 伤害
+        OnDamage(damage);
+    }
+
+    protected virtual void OnDamage(int damage)
+    {
+
+    }
+
+    protected void WaitDestroy()
+    {
+        actorState = EActorState.WaitDestroy;
+        OnWaitDestroy();
+    }
+
+    protected virtual void OnWaitDestroy()
+    {
+    }
 
     #endregion
 }

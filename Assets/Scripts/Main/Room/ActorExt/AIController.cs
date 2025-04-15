@@ -13,12 +13,16 @@ public class AIController : Actor
 
     [SerializeField] private float attackAnimDuration = 0.875f;
     [SerializeField] private float attackHitTime = 0.5f;
+    [SerializeField] private float hurtAnimDuration = 0.7f;
+    [SerializeField] private float deathAnimDuration = 1f;
     protected override void OnInit()
     {
         base.OnInit();
         configItem = MonsterConfig.GetConfigItem(ConfigId);
+        InitAttribute();
         behaviorTree = new BehaviorTree();
         behaviorTree.Init(new BTGenInfo(configItem.AiId),this);
+        AgentStart();
         //停止距离 为 攻击距离
         // navMeshAgent.stoppingDistance = GetAttackDistance();
     }
@@ -37,6 +41,7 @@ public class AIController : Actor
             Quaternion targetRotation = Quaternion.LookRotation(targetDir);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 10f);
         }
+        navMeshAgent.speed = GetMoveSpeed();
         float speed = navMeshAgent.velocity.magnitude;
         SetFloat("MoveSpeedPet",speed);
     }
@@ -90,4 +95,51 @@ public class AIController : Actor
             navMeshAgent.SetDestination(pos);
         }
     }
+    
+    //初始化变量
+    private void InitAttribute()
+    {
+        AddAttribute(EMonsterAttribute.BaseSpeed, navMeshAgent.speed);
+        AddAttribute(EMonsterAttribute.DamageIncreaseSpeed, 0);
+        AddAttribute(EMonsterAttribute.HP, configItem.Hp);
+        AddAttribute(EMonsterAttribute.MaxHP, configItem.Hp);
+        AddAttribute(EMonsterAttribute.HurtAnimDuration, hurtAnimDuration);
+        AddAttribute(EMonsterAttribute.DeathAnimDuration, deathAnimDuration);
+    }
+
+    private float GetMoveSpeed()
+    {
+        float baseSpeed = GetFloatAttribute(EMonsterAttribute.BaseSpeed);
+        float damageIncreaseSpeed = GetFloatAttribute(EMonsterAttribute.DamageIncreaseSpeed);
+        return baseSpeed + damageIncreaseSpeed;
+    }
+
+    protected override void OnDamage(int damage)
+    {
+        base.OnDamage(damage);
+        UpdateAttribute(EMonsterAttribute.HP, GetFloatAttribute(EMonsterAttribute.HP) - damage);
+        if (GetFloatAttribute(EMonsterAttribute.HP) <= 0)
+        {
+            //死亡
+            WaitDestroy();
+        }
+    }
+
+    protected override void OnWaitDestroy()
+    {
+        base.OnWaitDestroy();
+        m_stateTimeCount = GetFloatAttribute(EMonsterAttribute.DeathAnimDuration);
+        AgentStop();
+    }
+}
+
+public enum EMonsterAttribute
+{
+    None = 0,
+    BaseSpeed = 1,
+    DamageIncreaseSpeed = 2,
+    HP = 3,
+    MaxHP = 4,
+    HurtAnimDuration = 5,
+    DeathAnimDuration = 6,
 }

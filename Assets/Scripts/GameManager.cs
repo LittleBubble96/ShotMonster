@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         gameStateMachine.Init();
 
         RoomManager.Instance.Init();
+        ProjectileManager.Instance.Init();
         
     
         GOtPoolManager.Instance.Init();
@@ -104,6 +105,15 @@ public class GameManager : MonoBehaviour
         if (RoomManager.Instance != null)
         {
             RoomManager.Instance.DoUpdate(Time.deltaTime);
+        }
+        if (ProjectileManager.Instance != null)
+        {
+            ProjectileManager.Instance.DoUpdate(Time.deltaTime);
+        }
+        
+        if (BuffManager.Instance != null)
+        {
+            BuffManager.Instance.DoUpdate(Time.deltaTime);
         }
     }
 

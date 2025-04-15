@@ -10,4 +10,9 @@ public class ActorComponent : IRecycle
     {
         actor = null;
     }
+
+    public Actor GetActor()
+    {
+        return actor;
+    }
 }

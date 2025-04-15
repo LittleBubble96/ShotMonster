@@ -7,7 +7,7 @@ public class BuffParameter
     }
 }
 
-public class BuffParameter<T> : EventType
+public class BuffParameter<T> : BuffParameter
 {
     public T Value { get; set; }
         

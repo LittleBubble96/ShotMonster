@@ -3,14 +3,20 @@ using UnityEngine;
 public class PlayerController : Actor
 {
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float forwardMoveSpeed = 5f;
+    [SerializeField] private float backwardMoveSpeed = 3f;
     [SerializeField] private float rotationSpeed = 10f;
     [Header("Shot")]
-    [SerializeField] private Transform shotSpawn;
     [SerializeField] private float shotSpeed = 1f;
     [SerializeField] private float shotAnimDuration = 0.5f;
+    [SerializeField] private float shotAnimMainFrame = 0.18f; //攻击动画关键帧
     [Header("Target")]
     [SerializeField] private float checkTargetDuration = 0.5f;
+    [Header("Muzzle")]
+    [SerializeField] private Transform singleMuzzle;
+    [SerializeField] private Transform[] twoMuzzles;
+    [SerializeField] private Transform[] threeMuzzles;
+
     private CharacterController characterController;
     private Vector3 moveDirection;
     private Vector3 targetDirection;
@@ -21,6 +27,7 @@ public class PlayerController : Actor
         InitAttackData();
         TryOrAddActorComponent<TargetComponent>();
         InitTargetData();
+        InitAttributeData();
         characterController = GetComponent<CharacterController>();
         RegisterSystem<AttackSys>();
         RegisterSystem<TargetSystem>();
@@ -34,6 +41,8 @@ public class PlayerController : Actor
 #else
         HandleTouchInput();
 #endif
+        //处理目标方向
+        HandleTargetDir();
         HandleLerpStop(dt);
         MoveCharacter(dt);
         RotateCharacter(dt);
@@ -98,6 +107,25 @@ public class PlayerController : Actor
         }
     }
 
+    private void HandleTargetDir()
+    {
+        TargetComponent targetComponent = GetActorComponent<TargetComponent>();
+        if (targetComponent != null && targetComponent.TargetIsValid())
+        {
+            Actor targetActor = RoomManager.Instance.GetActorById(targetComponent.TargetActorId);
+            if (targetActor != null)
+            {
+                Vector3 targetPos = targetActor.GetPosition();
+                Vector3 dir = targetPos - transform.position;
+                dir.y = 0;
+                targetDirection = dir.normalized;
+                return;
+            }
+        }
+
+        targetDirection = moveDirection;
+    }
+
     private void HandleLerpStop(float dt)
     {
         if (isPress)
@@ -127,6 +155,9 @@ public class PlayerController : Actor
         {
             //重力
             Vector3 gravity = characterController.isGrounded ? Vector3.zero : Vector3.down * 9.81f * dt;
+            //移动速度
+            float t =  Vector3.Dot(moveDirection, transform.forward);
+            float moveSpeed = Mathf.Lerp(backwardMoveSpeed, forwardMoveSpeed, t);
             characterController.Move(moveDirection * moveSpeed * dt + gravity);
         }
     }
@@ -161,9 +192,14 @@ public class PlayerController : Actor
     {
         //攻击数据
         AttackComponent attackComponent = GetActorComponent<AttackComponent>();
-        attackComponent.AttackPoint = shotSpawn;
+        attackComponent.SingleMuzzle = singleMuzzle;
+        attackComponent.DoubleMuzzles = twoMuzzles;
+        attackComponent.TripleMuzzles = threeMuzzles;
+        attackComponent.MuzzleCount = 1; //目前等于1
+        attackComponent.ProjectileConfigId = 1;//子弹配置ID
         attackComponent.AttackAnimationTime = shotAnimDuration;
         attackComponent.AttackSpeed = shotSpeed;
+        attackComponent.AttackAnimationKeyFrameTime = shotAnimMainFrame;
     }
 
     public void InitTargetData()
@@ -172,6 +208,19 @@ public class PlayerController : Actor
         TargetComponent targetComponent = GetActorComponent<TargetComponent>();
         targetComponent.TargetDuration = checkTargetDuration;
     }
+    
+    public void InitAttributeData()
+    {
+        //属性数据
+        AddAttribute(EPlayerAttribute.Health , 100);
+        AddAttribute(EPlayerAttribute.Attack , 10);
+    }
 
     #endregion
+}
+
+public enum EPlayerAttribute
+{
+    Health,
+    Attack,
 }

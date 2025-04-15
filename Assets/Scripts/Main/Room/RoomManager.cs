@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class RoomManager : Singleton<RoomManager>
 {
@@ -12,14 +14,31 @@ public class RoomManager : Singleton<RoomManager>
 
     private Dictionary<int, Actor> actorDict = new Dictionary<int, Actor>();
     private List<Actor> actorList = new List<Actor>();
+    private Queue<Actor> destoryActorList = new Queue<Actor>();
     
     private CameraManager cameraManager;
     private MonsterSpawnController monsterSpawnController;
+    
+    private ERoomState roomState = ERoomState.None;
+    public ERoomState RoomState
+    {
+        get { return roomState; }
+        set { 
+            roomState = value;
+            if (roomState == ERoomState.None)
+            {
+                actorList.Clear();
+                actorDict.Clear();
+                destoryActorList.Clear();
+            }
+        }
+    }
     public void Init()
     {
         // 初始化房间管理器
         monsterSpawnController = new MonsterSpawnController();
         monsterSpawnController.Init();
+        RoomState = ERoomState.None;
     }
 
     private int GenerateActorId()
@@ -42,6 +61,11 @@ public class RoomManager : Singleton<RoomManager>
     
     public void DoFixedUpdate(float dt)
     {
+        if (roomState != ERoomState.Playing)
+        {
+            return;
+        }
+
         for (int i = actorList.Count - 1; i >= 0; i--)
         {
             Actor actor = actorList[i];
@@ -54,6 +78,10 @@ public class RoomManager : Singleton<RoomManager>
     
     public void DoUpdate(float dt)
     {
+        if (roomState != ERoomState.Playing)
+        {
+            return;
+        }
         if (monsterSpawnController != null)
         {
             monsterSpawnController.DoUpdate(dt);
@@ -65,6 +93,16 @@ public class RoomManager : Singleton<RoomManager>
             {
                 actor.DoUpdate(dt);
             }
+            if (actor != null && actor.GetActorState() == EActorState.WaitDestroy)
+            {
+                destoryActorList.Enqueue(actor);
+            }
+        }
+        
+        while (destoryActorList.Count > 0)
+        {
+            Actor actor = destoryActorList.Dequeue();
+            DestroyActor(actor);
         }
     }
 
@@ -134,7 +172,16 @@ public class RoomManager : Singleton<RoomManager>
         {
             characterController.enabled = false;
         }
-        actor.transform.position = position;
+        NavMeshAgent agent = actor.GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+             agent.Warp(position);
+        }
+        else
+        {
+            actor.transform.position = position;
+        }
+
         actor.transform.rotation = rotation;
         if (characterController != null)
         {

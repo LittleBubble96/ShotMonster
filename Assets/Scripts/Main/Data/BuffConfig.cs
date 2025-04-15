@@ -18,6 +18,8 @@ public enum EBufferType
     AttackSpeed = 6,
     //怪物死亡金币掉落概率增加
     GoldDropRate = 7,
+    //基础上海
+    BaseMonsterDamage = 8,
 }
 
 public class BuffConfigItem
@@ -34,6 +36,8 @@ public class BuffConfigItem
         public int LoopCount = -1; //如果循环次数小于0，则表示无限循环
         
         public float Duration = -1f; //持续时间，-1表示直接生效
+        
+        public bool CanOverlay = false; //是否可以叠加
 
     }
     public class BuffConfig
@@ -116,7 +120,19 @@ public class BuffConfigItem
                             Desc = "金币掉落概率增加",
                             BuffType = EBufferType.GoldDropRate, 
                             }
-                }
+                },
+                {
+                    8,
+                    new BuffConfigItem()
+                        { Id = 8, 
+                            Name = "怪物基础上海", 
+                            Icon = "", 
+                            Desc = "基础伤害增加",
+                            BuffType = EBufferType.BaseMonsterDamage, 
+                            Duration = 1,
+                            CanOverlay = true,
+                            }
+                },
             };
 
         public static BuffConfigItem GetConfigItem(int CfgId)
