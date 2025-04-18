@@ -76,6 +76,7 @@
      <Compile Include="Assets\Scripts\Main\Base\Pool\IGameObjectRecycle.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
      <Compile Include="Assets\Scripts\UI\Ext\RoomGame_UI.cs" />
+     <Compile Include="Assets\Scripts\Main\GameStateMachine\Ext\Game\IBonusListener.cs" />
      <Compile Include="Assets\LoadResources\Matthew Guz\Hits Effects FREE\Scene Demo\Script\Prefab Manager.cs" />
      <Compile Include="Assets\Scripts\Main\GameStateMachine\Ext\MainGameState.cs" />
      <Compile Include="Assets\Scripts\UI\UILayerManager.cs" />
@@ -83,6 +84,7 @@
      <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Ext\BTPetPreBhvTN.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\LoadResources\Suriyun\Scripts\AnimatorController.cs" />
+     <Compile Include="Assets\Scripts\Main\Room\ActorExt\ActorDefine.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
      <Compile Include="Assets\Scripts\UI\Ext\Room\RoomUserItem.cs" />
@@ -104,6 +106,7 @@
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayerBase.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
      <Compile Include="Assets\GabrielAguiarProductions\Scripts\ParticleSystemController\Serializables.cs" />
+     <Compile Include="Assets\Scripts\UI\Ext\Game\SelectBonus_PopupUI.cs" />
      <Compile Include="Assets\Scripts\Main\Room\ActorExt\Sys\AttackSys.cs" />
      <Compile Include="Assets\Scripts\Main\GameStateMachine\GameStateBase.cs" />
      <Compile Include="Assets\Scripts\Main\Buff\BaseBuff.cs" />
@@ -111,6 +114,7 @@
      <Compile Include="Assets\Scripts\Main\Base\Pool\GOtPoolManager.cs" />
      <Compile Include="Assets\Scripts\Main\Room\Actor.cs" />
      <Compile Include="Assets\Scripts\Main\Base\Event\EventType.cs" />
+     <Compile Include="Assets\Scripts\Main\Bonus\Ext\AttackUpRateAlwaysBonus.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
      <Compile Include="Assets\Scripts\Main\Buff\BuffFunc.cs" />
@@ -125,6 +129,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
      <Compile Include="Assets\Scripts\Main\Projectile\ProjectileDefine.cs" />
      <Compile Include="Assets\GabrielAguiarProductions\Scripts\ParticleSystemController\SaveParticleSystemScript.cs" />
+     <Compile Include="Assets\Scripts\Main\Buff\Ext\AttackRateUpBuff.cs" />
      <Compile Include="Assets\Scripts\UI\Ext\Loading_UI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
      <Compile Include="Assets\Scripts\Main\Room\Monster\MonsterSpawnController.cs" />
@@ -166,6 +171,7 @@
      <Compile Include="Assets\Scripts\Main\Behavior\BTSequenceNode.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\UI\Ext\Game\SelectBonusItem.cs" />
      <Compile Include="Assets\Scripts\Main\Projectile\ProjectileBase.cs" />
      <Compile Include="Assets\Scripts\Main\Base\StateMachine\StateBase.cs" />
      <Compile Include="Assets\Scripts\Main\GameConst.cs" />
@@ -175,6 +181,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\Scripts\Main\FactoryRegister\ClientFactoryRegisterHelper.Buff.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Ext\BTPetAIBreakDN.cs" />
+     <Compile Include="Assets\Scripts\Main\GameStateMachine\Ext\Game\Ext\TimeBonusListener.cs" />
      <Compile Include="Assets\Scripts\Main\Buff\BuffManager.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Ext\BTPetHatedTN.cs" />
      <Compile Include="Assets\GabrielAguiarProductions\Scripts\UniqueProjectiles\RotateToMouseScript.cs" />
@@ -251,6 +258,7 @@
      <Folder Include="Assets\SciFiHeroPBR" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Prefab\Lusif" />
      <Folder Include="Assets\Scripts\Main\Base" />
+     <Folder Include="Assets\Scripts\UI\Ext\Game" />
      <None Include="Assets\SciFiHeroPBR\Shader\PBRMaskTint.shader" />
      <Folder Include="Assets\GabrielAguiarProductions\Settings" />
      <Folder Include="Assets\GabrielAguiarProductions\Materials" />
@@ -258,6 +266,7 @@
      <None Include="Assets\LoadResources\Suriyun\README.txt" />
      <Folder Include="Assets\SciFiHeroPBR\Prefabs" />
      <Folder Include="Assets\LoadResources\msVFX_Free Smoke Effects Pack\Materials" />
+     <Folder Include="Assets\Scripts\Main\GameStateMachine\Ext\Game\Ext" />
      <Folder Include="Assets\GabrielAguiarProductions\Textures\Noise" />
      <Folder Include="Assets\Resources\Bullet\Start" />
      <Folder Include="Assets\LoadResources\msVFX_Free Smoke Effects Pack" />
@@ -315,6 +324,7 @@
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Animations" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Materials\Lusif" />
+     <Folder Include="Assets\Scripts\Main\GameStateMachine\Ext\Game" />
      <Folder Include="Assets\Resources\UI\Room" />
      <Folder Include="Assets\Scripts\Main\Bonus" />
      <Folder Include="Assets\Brawl Arena" />
@@ -335,6 +345,7 @@
      <Folder Include="Assets\LoadResources\Suriyun\Scripts\Camera Scripts" />
      <Folder Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts" />
      <Folder Include="Assets\Scenes" />
+     <Folder Include="Assets\Resources\UI\Game" />
      <Folder Include="Assets\Scripts\UI\Base" />
      <Folder Include="Assets\Scripts" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />

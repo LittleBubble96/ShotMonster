@@ -5,4 +5,5 @@
     public const string EVENT_RefreshRoom = "EVENT_RefreshRoom";
     public const string Event_CreateRoomSuccess = "Event_CreateRoomSuccess";
     public const string Event_JoinRoomSuccess = "Event_JoinRoomSuccess";
+    public const string Event_SelectBonusOver = "Event_SelectBonusOver";
 }

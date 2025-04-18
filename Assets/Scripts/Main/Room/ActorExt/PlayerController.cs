@@ -213,17 +213,12 @@ public class PlayerController : Actor
     public void InitAttributeData()
     {
         //属性数据
-        AddAttribute(EPlayerAttribute.Health , 100);
-        AddAttribute(EPlayerAttribute.Attack , 10);
-        AddAttribute(EPlayerAttribute.AttackBonusSpeedUpAlways , 0.2f);
+        AddAttribute(EActorAttribute.HP , 100);
+        AddAttribute(EActorAttribute.MaxHP , 100);
+        AddAttribute(EActorAttribute.Attack , 10);
+        AddAttribute(EPlayerAttribute.AttackBonusSpeedUpAlways , 1f);
     }
 
     #endregion
 }
 
-public enum EPlayerAttribute
-{
-    Health,
-    Attack,
-    AttackBonusSpeedUpAlways,//牌子攻速加成永久
-}

@@ -101,8 +101,8 @@ public class AIController : Actor
     {
         AddAttribute(EMonsterAttribute.BaseSpeed, navMeshAgent.speed);
         AddAttribute(EMonsterAttribute.DamageIncreaseSpeed, 0);
-        AddAttribute(EMonsterAttribute.HP, configItem.Hp);
-        AddAttribute(EMonsterAttribute.MaxHP, configItem.Hp);
+        AddAttribute(EActorAttribute.HP, configItem.Hp);
+        AddAttribute(EActorAttribute.MaxHP, configItem.Hp);
         AddAttribute(EMonsterAttribute.HurtAnimDuration, hurtAnimDuration);
         AddAttribute(EMonsterAttribute.DeathAnimDuration, deathAnimDuration);
     }
@@ -117,8 +117,8 @@ public class AIController : Actor
     protected override void OnDamage(int damage)
     {
         base.OnDamage(damage);
-        UpdateAttribute(EMonsterAttribute.HP, GetFloatAttribute(EMonsterAttribute.HP) - damage);
-        if (GetFloatAttribute(EMonsterAttribute.HP) <= 0)
+        UpdateAttribute(EActorAttribute.HP, GetFloatAttribute(EActorAttribute.HP) - damage);
+        if (GetFloatAttribute(EActorAttribute.HP) <= 0)
         {
             //死亡
             WaitDestroy();
@@ -133,13 +133,3 @@ public class AIController : Actor
     }
 }
 
-public enum EMonsterAttribute
-{
-    None = 0,
-    BaseSpeed = 1,
-    DamageIncreaseSpeed = 2,
-    HP = 3,
-    MaxHP = 4,
-    HurtAnimDuration = 5,
-    DeathAnimDuration = 6,
-}

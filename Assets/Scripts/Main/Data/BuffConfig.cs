@@ -20,6 +20,8 @@ public enum EBufferType
     GoldDropRate = 7,
     //基础上海
     BaseMonsterDamage = 8,
+    //加攻击力 百分比
+    AttackUpRateAlways = 9,
 }
 
 public class BuffConfigItem
@@ -129,6 +131,18 @@ public class BuffConfigItem
                             Icon = "", 
                             Desc = "基础伤害增加",
                             BuffType = EBufferType.BaseMonsterDamage, 
+                            Duration = 1,
+                            CanOverlay = true,
+                            }
+                },
+                {
+                    9,
+                    new BuffConfigItem()
+                        { Id = 9, 
+                            Name = "Buff9", 
+                            Icon = "Buff9", 
+                            Desc = "攻击力增加",
+                            BuffType = EBufferType.AttackUpRateAlways, 
                             Duration = 1,
                             CanOverlay = true,
                             }

@@ -1,13 +1,15 @@
-﻿public class SpeedUpBuff: BaseBuff
+﻿
+
+public class AttackRateUpBuff: BaseBuff
 {
-    private float speedRate;
+    private float attakRate;
     
     protected override void OnParameterChange(CapParameter parameter)
     {
         base.OnParameterChange(parameter);
         if (parameter is CapParameter<float> damageParameter)
         {
-            speedRate = damageParameter.Value;
+            attakRate = damageParameter.Value;
         }
         //Debug.Log( "[buff] BaseMonsterDamageBuff OnParameterChange:  Dur" + Duration);
     }
@@ -19,7 +21,7 @@
         Actor target = RoomManager.Instance.GetActorById(TargetActorId);
         if (target != null)
         {
-            target.UpdateAttribute(EPlayerAttribute.AttackBonusSpeedUpAlways, speedRate);
+            target.UpdateAttribute(EActorAttribute.Attack, attakRate);
         }
     }
 }

@@ -6,6 +6,10 @@ public enum EBonusType
     None = 0,
     //穿透
     CrossBullet = 1,
+    // 加速
+    SpeedUpAlways = 2,
+    //攻击力永久增加百分之20
+    AttackUpAlways = 3,
 }
 
 public enum EBonusQuality
@@ -28,6 +32,7 @@ public class BonusConfigItem
        
         public EBonusType BonusType;
         public EBonusQuality BonusQuality;
+        public string Param1, Param2, Param3;
         
     }
     public class BonusConfig
@@ -40,9 +45,9 @@ public class BonusConfigItem
                     new BonusConfigItem()
                         { 
                             Id = 1, 
-                            Name = "穿透", 
+                            Name = "cross bullet", 
                             Icon = "Buff1", 
-                            Desc = "子弹击中后穿透", 
+                            Desc = "when hit monster,bullet can cross monster", 
                             BonusType = EBonusType.CrossBullet, 
                             BonusQuality = EBonusQuality.Silver,
                             }
@@ -52,11 +57,25 @@ public class BonusConfigItem
                     new BonusConfigItem()
                         { 
                             Id = 2, 
-                            Name = "穿透", 
+                            Name = "加速", 
                             Icon = "Buff1", 
-                            Desc = "子弹击中后穿透", 
-                            BonusType = EBonusType.CrossBullet, 
+                            Desc = "attack duration always increase 20%", 
+                            BonusType = EBonusType.SpeedUpAlways, 
                             BonusQuality = EBonusQuality.Gold,
+                            Param1 = "0.2",
+                            }
+                },
+                {
+                    3,
+                    new BonusConfigItem()
+                        { 
+                            Id = 3, 
+                            Name = "attack up", 
+                            Icon = "Buff1", 
+                            Desc = "attack always up 60%", 
+                            BonusType = EBonusType.AttackUpAlways, 
+                            BonusQuality = EBonusQuality.Color,
+                            Param1 = "0.6",
                             }
                 },
             };
@@ -71,5 +90,9 @@ public class BonusConfigItem
             return null;
         }
         
+        public static Dictionary<int, BonusConfigItem> GetAllConfig()
+        {
+            return ConfigDict;
+        }
     }
     
