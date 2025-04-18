@@ -94,7 +94,8 @@ public class ProjectileBase : RecycleObject
         RaycastHit hit;
         //忽略 ownerLayerMask
         int layerMask = ~(1 << ownerLayerMask);
-        if (Physics.SphereCast(ray, 0.3f,out hit,distance,layerMask))
+        if (Physics.SphereCast(m_lastPos + offset, 0.3f, 
+                transform.position - m_lastPos, out hit, distance < 0.3f ? 0.3f:distance , layerMask))
         {
             if (hit.collider == null)
             {
@@ -105,6 +106,7 @@ public class ProjectileBase : RecycleObject
             Actor targetActor = hit.collider.GetComponent<Actor>();
             ProjectileManager.Instance.Hit(this, targetActor,hit);
         }
+        
     }
 
     private void CheckStartRay()

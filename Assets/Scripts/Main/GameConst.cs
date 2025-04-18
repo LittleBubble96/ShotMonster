@@ -13,4 +13,9 @@ public class GameConst
     public const string AnimationPreNameInt = "Int";
     
     public const string ColonStr = ":";
+    
+    //翻牌子数量
+    public const int BonusCount = 3;
+    //牌子轮次
+    public const int BonusRound = 3;
 }

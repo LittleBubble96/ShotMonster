@@ -29,7 +29,7 @@ public class BaseBuff : IRecycle
     
     public bool CanOverlay => buffConfigItem.CanOverlay;
 
-    public void Init(int buffId,BuffConfigItem buffConfig, int releaseActorId, int targetActorId, BuffParameter parameter)
+    public void Init(int buffId,BuffConfigItem buffConfig, int releaseActorId, int targetActorId, CapParameter parameter)
     {
         BuffId = buffId;
         ReleaseActorId = releaseActorId;
@@ -44,12 +44,12 @@ public class BaseBuff : IRecycle
         loopCountCount = 0;
     }
 
-    public void Overlay(BuffParameter parameter)
+    public void Overlay(CapParameter parameter)
     {
         OnParameterChange(parameter);
     }
 
-    protected virtual void OnParameterChange(BuffParameter parameter)
+    protected virtual void OnParameterChange(CapParameter parameter)
     {
         //可以在这里修改参数
     }

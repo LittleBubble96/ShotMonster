@@ -16,14 +16,19 @@ public class AttackSys : SystemBase
         }
         // Owner.SetLayerWeight(1,targetComponent.TargetIsValid() ? 1 : 0);
 
-        attackComponent.CurrentAttackTime += dt;
-        if (attackComponent.CurrentAttackTime > attackComponent.AttackSpeed)
+        if (attackComponent.CurrentAttackTime > 0)
         {
-            //can attack
-            Owner.SetBool("attack", true);
-            attackComponent.CurrentAttackTime = 0;
-            attackComponent.CurrentAttackAnimationTime = attackComponent.AttackAnimationTime;
-            attackComponent.WaitAttack = true;
+            attackComponent.CurrentAttackTime -= dt;
+            if (attackComponent.CurrentAttackTime <= 0)
+            {
+                attackComponent.CurrentAttackTime = attackComponent.GetFullAttackTime();
+                //can attack
+                Owner.SetBool("attack", true);
+                attackComponent.TempAnimSpeed = attackComponent.GetFullAttackAnimationSpeed();
+                Owner.SetFloat("attackSpeedMul", attackComponent.TempAnimSpeed);
+                attackComponent.CurrentAttackAnimationTime = attackComponent.AttackAnimationTime /  attackComponent.TempAnimSpeed;
+                attackComponent.WaitAttack = true;
+            }
         }
         
         //更新攻击动画时间
@@ -31,7 +36,10 @@ public class AttackSys : SystemBase
         {
             attackComponent.CurrentAttackAnimationTime -= dt;
             //检测是否可以攻击
-            if (attackComponent.WaitAttack && attackComponent.AttackAnimationTime - attackComponent.CurrentAttackAnimationTime > attackComponent.AttackAnimationKeyFrameTime)
+            if (attackComponent.WaitAttack && 
+                attackComponent.AttackAnimationTime - 
+                attackComponent.CurrentAttackAnimationTime > 
+                attackComponent.AttackAnimationKeyFrameTime / attackComponent.TempAnimSpeed)
             {
                 //到攻击关键帧了
                 Attack(attackComponent);
@@ -41,6 +49,7 @@ public class AttackSys : SystemBase
             {
                 attackComponent.CurrentAttackAnimationTime = 0;
                 Owner.SetBool("attack", false);
+                Owner.SetFloat("attackSpeedMul",1);
             }
         }
     }

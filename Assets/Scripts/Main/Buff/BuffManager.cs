@@ -13,7 +13,7 @@ public class BuffManager : Singleton<BuffManager>
 
     // Buff类型枚举
     // 添加buff
-    public int AddBuff(int buffId, BuffParameter parameter,int releaseActorId, int targetActorId)
+    public int AddBuff(int buffId, CapParameter parameter,int releaseActorId, int targetActorId)
     {
         BuffConfigItem buffConfig = BuffConfig.GetConfigItem(buffId);
         if (buffConfig == null)
@@ -29,7 +29,7 @@ public class BuffManager : Singleton<BuffManager>
         return OverlayBuff(newBuff,parameter);
     }
     
-    private int CreateNewBuff(BuffConfigItem buffConfig, BuffParameter parameter, int releaseActorId, int targetActorId)
+    private int CreateNewBuff(BuffConfigItem buffConfig, CapParameter parameter, int releaseActorId, int targetActorId)
     {
         GenerateBuffId();
         BaseBuff newBuff = CreateBuff(buffConfig.BuffType);
@@ -43,7 +43,7 @@ public class BuffManager : Singleton<BuffManager>
         return buffIdCounter;
     }
     
-    private int OverlayBuff(BaseBuff buff ,BuffParameter parameter)
+    private int OverlayBuff(BaseBuff buff ,CapParameter parameter)
     {
         if (buff == null)
         {

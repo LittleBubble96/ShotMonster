@@ -12,6 +12,6 @@ public class BuffFunc
 
         int damage = releaseActor.GetIntAttribute(EPlayerAttribute.Attack);
         float duration = targetActor.GetFloatAttribute(EMonsterAttribute.HurtAnimDuration);
-        BuffManager.Instance.AddBuff(8,new BuffParameter<int,float>(damage,duration),releaseActorId,targetActorId);
+        BuffManager.Instance.AddBuff(8,new CapParameter<int,float>(damage,duration),releaseActorId,targetActorId);
     }
 }

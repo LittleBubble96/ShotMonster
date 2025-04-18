@@ -24,10 +24,10 @@ public class PlayerController : Actor
     protected override void OnInit()
     {
         TryOrAddActorComponent<AttackComponent>();
-        InitAttackData();
         TryOrAddActorComponent<TargetComponent>();
         InitTargetData();
         InitAttributeData();
+        InitAttackData();
         characterController = GetComponent<CharacterController>();
         RegisterSystem<AttackSys>();
         RegisterSystem<TargetSystem>();
@@ -154,11 +154,11 @@ public class PlayerController : Actor
         if (moveDirection != Vector3.zero)
         {
             //重力
-            Vector3 gravity = characterController.isGrounded ? Vector3.zero : Vector3.down * 9.81f * dt;
+            Vector3 gravity = characterController.isGrounded ? Vector3.zero : Vector3.down * 9.81f;
             //移动速度
             float t =  Vector3.Dot(moveDirection, transform.forward);
             float moveSpeed = Mathf.Lerp(backwardMoveSpeed, forwardMoveSpeed, t);
-            characterController.Move(moveDirection * moveSpeed * dt + gravity);
+            characterController.SimpleMove(moveDirection * moveSpeed + gravity);
         }
     }
     
@@ -200,6 +200,7 @@ public class PlayerController : Actor
         attackComponent.AttackAnimationTime = shotAnimDuration;
         attackComponent.AttackSpeed = shotSpeed;
         attackComponent.AttackAnimationKeyFrameTime = shotAnimMainFrame;
+        attackComponent.CurrentAttackTime = attackComponent.GetFullAttackTime();
     }
 
     public void InitTargetData()
@@ -214,6 +215,7 @@ public class PlayerController : Actor
         //属性数据
         AddAttribute(EPlayerAttribute.Health , 100);
         AddAttribute(EPlayerAttribute.Attack , 10);
+        AddAttribute(EPlayerAttribute.AttackBonusSpeedUpAlways , 0.2f);
     }
 
     #endregion
@@ -223,4 +225,5 @@ public enum EPlayerAttribute
 {
     Health,
     Attack,
+    AttackBonusSpeedUpAlways,//牌子攻速加成永久
 }

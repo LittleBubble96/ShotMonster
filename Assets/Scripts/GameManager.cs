@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
     
         GOtPoolManager.Instance.Init();
         EffectManager.Instance.Init();
+        BonusMgr.Instance.Init();
     }
     
 

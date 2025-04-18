@@ -15,6 +15,8 @@ public class AttackComponent : ActorComponent
     //攻击的动画的关键帧
     public float AttackAnimationKeyFrameTime { get; set; }
     public bool WaitAttack { get; set; }
+
+    public float TempAnimSpeed { get; set; }
     
     //当前枪口数量 
     public int MuzzleCount { get; set; }
@@ -44,4 +46,25 @@ public class AttackComponent : ActorComponent
         
         return null;
     }
+    
+    //获取完整的攻击时间
+    public float GetFullAttackTime()
+    {
+        float attackSpeedBonus = GetActor().GetFloatAttribute(EPlayerAttribute.AttackBonusSpeedUpAlways);
+        float attackSpeed = AttackSpeed * attackSpeedBonus;
+        return attackSpeed;
+    }
+    
+    //获取完整的动画时间
+    public float GetFullAttackAnimationSpeed()
+    {
+        float fullAttackTime = GetFullAttackTime();
+        if (AttackAnimationTime > fullAttackTime)
+        {
+            return AttackAnimationTime / fullAttackTime;
+        }
+
+        return 1;
+    }
+
 }

@@ -108,36 +108,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         {
             return;
         }
-        //播放击中特效
-        string hitEffectPath = ProjectileDefine.ProjectileResHitPath + projectile.GetHitEffectPath();
-        if (!string.IsNullOrEmpty(hitEffectPath))
-        {
-            EffectManager.Instance.PlayEffect(hitEffectPath, FixedHitPoint(hit), Quaternion.LookRotation(hit.normal));
-        }
-        //TODO : 是否有 牌子可以 检测是否需要销毁
-        DestroyProjectile(projectile);
-        if (target == null)
-        {
-            return;
-        }
-        //怪物掉血
-        BuffFunc.AttachMonsterBaseDamage(projectile.GetOwnerActorId(),target.GetActorId());
-    }
-
-    private Vector3 FixedHitPoint(RaycastHit hit)
-    {
-        if (hit.collider == null)
-        {
-            return hit.point;
-        }
-
-        if (hit.collider is CapsuleCollider ca)
-        {
-            Vector3 hitPoint = hit.point;
-            hitPoint.y = ca.transform.position.y + ca.center.y;
-            return hitPoint;
-        }
-        return hit.point;
+        BonusMgr.Instance.OnHitMonster(hit, projectile, target);
     }
 
     private int GenerateProjectileId()

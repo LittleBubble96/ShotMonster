@@ -229,6 +229,7 @@ public class Actor : RecycleObject
             m_animator.CrossFade(name,blendTime,0,0f);
         }
     }
+    
 
     public void SetLayerWeight(int layer, float weight)
     {

@@ -4,10 +4,10 @@ public class BaseMonsterDamageBuff : BaseBuff
 {
     private int damage;
     
-    protected override void OnParameterChange(BuffParameter parameter)
+    protected override void OnParameterChange(CapParameter parameter)
     {
         base.OnParameterChange(parameter);
-        if (parameter is BuffParameter<int,float> damageParameter)
+        if (parameter is CapParameter<int,float> damageParameter)
         {
             damage = damageParameter.Value;
             Duration = damageParameter.Value1;

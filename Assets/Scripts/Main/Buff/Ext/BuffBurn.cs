@@ -2,7 +2,7 @@
 
 public class BuffBurn : BaseBuff
 {
-    protected override void OnParameterChange(BuffParameter parameter)
+    protected override void OnParameterChange(CapParameter parameter)
     {
         base.OnParameterChange(parameter);
         // if (parameter is Bu burnParameter)
