@@ -18,7 +18,9 @@ public class TargetSystem : SystemBase
         }
         targetComponent.TargetTime = 0;
         
-        List<Actor> actorList = RoomManager.Instance.GetActorList((actor) => actor.GetActorRoleType() == EActorRoleType.Monster);
+        List<Actor> actorList = RoomManager.Instance.GetActorList((actor) => 
+            actor.GetActorRoleType() == EActorRoleType.Monster && 
+            actor.GetActorState() == EActorState.Play);
         int[] sortedByDistance = new int[actorList.Count];
         //先根据距离进行排序 距离近的在前面 
         for (int i = 0; i < actorList.Count; i++)

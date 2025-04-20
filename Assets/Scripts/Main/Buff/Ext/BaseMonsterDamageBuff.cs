@@ -27,11 +27,14 @@ public class BaseMonsterDamageBuff : BaseBuff
         Actor target = RoomManager.Instance.GetActorById(TargetActorId);
         if (target != null)
         {
-            target.Damage(damage);
             if (target.GetActorState() == EActorState.Play)
             {
-                target.PlayAnimation("Damage");
-                target.UpdateAttribute(EMonsterAttribute.DamageIncreaseSpeed, -2f);
+                target.Damage(damage);
+                if (target.GetActorState() != EActorState.WaitDestroy)
+                {
+                    target.PlayAnimation("Damage");
+                    target.UpdateAttribute(EMonsterAttribute.DamageIncreaseSpeed, -2f);
+                }
             }
         }
         //Debug.Log("[buff] BaseMonsterDamageBuff OnStart");

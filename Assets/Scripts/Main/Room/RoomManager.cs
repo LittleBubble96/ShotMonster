@@ -93,7 +93,11 @@ public class RoomManager : Singleton<RoomManager>
             {
                 actor.DoUpdate(dt);
             }
-            if (actor != null && actor.GetActorState() == EActorState.WaitDestroy)
+            else if (actor != null && actor.GetActorState() == EActorState.WaitDestroy)
+            {
+                actor.DoUpdateWaitDestroy(dt);
+            }
+            if (actor != null && actor.GetActorState() == EActorState.Destroy)
             {
                 destoryActorList.Enqueue(actor);
             }

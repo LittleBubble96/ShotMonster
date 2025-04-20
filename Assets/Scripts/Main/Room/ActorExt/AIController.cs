@@ -129,6 +129,7 @@ public class AIController : Actor
     {
         base.OnWaitDestroy();
         m_stateTimeCount = GetFloatAttribute(EMonsterAttribute.DeathAnimDuration);
+        PlayAnimation("Die");
         AgentStop();
     }
 }

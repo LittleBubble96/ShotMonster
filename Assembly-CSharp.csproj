@@ -61,8 +61,8 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\BlackBoard.cs" />
      <Compile Include="Assets\Scripts\Main\Base\Effect\CAP_Effect.cs" />
-     <Compile Include="Assets\Scripts\Main\Behavior\BTDecoratorNode.cs" />
      <Compile Include="Assets\Scripts\Main\Bonus\Ext\CrossBulletBonus.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\BTDecoratorNode.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\BTGenInfo.cs" />
@@ -81,6 +81,7 @@
      <Compile Include="Assets\Scripts\Main\GameStateMachine\Ext\MainGameState.cs" />
      <Compile Include="Assets\Scripts\UI\UILayerManager.cs" />
      <Compile Include="Assets\Scripts\Main\Buff\Ext\BaseMonsterDamageBuff.cs" />
+     <Compile Include="Assets\Scripts\Main\Room\Hud\HudBase.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Ext\BTPetPreBhvTN.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\LoadResources\Suriyun\Scripts\AnimatorController.cs" />
@@ -201,6 +202,7 @@
      <Compile Include="Assets\Scripts\Main\Room\ActorExt\Cmpt\CmptExt\TargetComponent.cs" />
      <Compile Include="Assets\Scripts\Main\Buff\CapParameter.cs" />
      <Compile Include="Assets\LoadResources\Suriyun\Scripts\Swapper.cs" />
+     <Compile Include="Assets\Scripts\Main\Room\Hud\HudHelper.cs" />
      <Compile Include="Assets\Scripts\Main\GameStateMachine\GameStateMachine.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
      <Compile Include="Assets\Scripts\UI\Ext\Lock_UI.cs" />
@@ -212,6 +214,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <Folder Include="Assets\GabrielAguiarProductions\Scenes" />
      <Folder Include="Assets\GabrielAguiarProductions\UniqueProjectilesVol_2\Prefabs\Projectiles" />
+     <Folder Include="Assets\Violet Theme Ui\GemsAndCoins" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <Folder Include="Assets\SciFiHeroPBR\SRP" />
      <Folder Include="Assets\TextMesh Pro\Sprites" />
@@ -228,6 +231,7 @@
      <Folder Include="Assets\GabrielAguiarProductions\UniqueProjectilesVol_2\Prefabs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
      <Folder Include="Assets\TextMesh Pro" />
+     <Folder Include="Assets\Violet Theme Ui\Buttons\Misc" />
      <Folder Include="Assets\GabrielAguiarProductions\Textures\Gradients" />
      <Folder Include="Assets\Scripts\Main\Bonus\Ext" />
      <Folder Include="Assets\TextMesh Pro\Examples &amp; Extras" />
@@ -248,8 +252,11 @@
      <Folder Include="Assets\TextMesh Pro\Fonts" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Textures" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Prefab" />
+     <Folder Include="Assets\Violet Theme Ui\Toggles" />
      <Folder Include="Assets\Scripts\Main\Projectile" />
      <Folder Include="Assets\GabrielAguiarProductions\UniqueProjectilesVol_2\Models" />
+     <Folder Include="Assets\Violet Theme Ui\Switch" />
+     <Folder Include="Assets\Violet Theme Ui\White Icons" />
      <Folder Include="Assets\SciFiHeroPBR\Mesh" />
      <Folder Include="Assets\LoadResources" />
      <Folder Include="Assets\GabrielAguiarProductions\Scripts\UniqueProjectiles" />
@@ -260,6 +267,7 @@
      <Folder Include="Assets\Scripts\Main\Base" />
      <Folder Include="Assets\Scripts\UI\Ext\Game" />
      <None Include="Assets\SciFiHeroPBR\Shader\PBRMaskTint.shader" />
+     <Folder Include="Assets\Violet Theme Ui\Prefab\Toggles" />
      <Folder Include="Assets\GabrielAguiarProductions\Settings" />
      <Folder Include="Assets\GabrielAguiarProductions\Materials" />
      <Folder Include="Assets\Scripts\Main\Character" />
@@ -278,7 +286,9 @@
      <Folder Include="Assets\Scripts\Main\FactoryRegister" />
      <Folder Include="Assets\TextMesh Pro\Resources" />
      <Folder Include="Assets\LoadResources\2D Casual UI\Sprite" />
+     <Folder Include="Assets\Violet Theme Ui\Prefab" />
      <Folder Include="Assets\Scripts\UI" />
+     <Folder Include="Assets\Violet Theme Ui\Buttons" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
      <Folder Include="Assets\Resources\Effect" />
      <Folder Include="Assets\TextMesh Pro\Resources\Fonts &amp; Materials" />
@@ -286,6 +296,7 @@
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <Folder Include="Assets\Scripts\Main\Room" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+     <Folder Include="Assets\Resources\Hud" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
      <Folder Include="Assets\GabrielAguiarProductions\UniqueProjectilesVol_2\Prefabs\Hits" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Animations\Cute_Spider" />
@@ -296,11 +307,14 @@
      <Folder Include="Assets\Scripts\Main\GameStateMachine" />
      <Folder Include="Assets\Scripts\Main\Room\ClientActor" />
      <Folder Include="Assets\GabrielAguiarProductions\Scripts" />
+     <Folder Include="Assets\Violet Theme Ui\Panels" />
      <Folder Include="Assets\Scripts\Main\Room\ActorExt\Cmpt\CmptExt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
      <Folder Include="Assets\Scripts\Main\Buff" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Animations\Batty" />
+     <Folder Include="Assets\Violet Theme Ui" />
      <Folder Include="Assets\Scripts\Main\Room\ActorExt" />
+     <Folder Include="Assets\Violet Theme Ui\Progress Bars" />
      <Folder Include="Assets\Brawl Arena\Scenes" />
      <Folder Include="Assets\Scripts\Main\Data" />
      <Folder Include="Assets\SciFiHeroPBR\Animations" />
@@ -324,6 +338,7 @@
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Animations" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Materials\Lusif" />
+     <Folder Include="Assets\Scripts\Main\Room\Hud" />
      <Folder Include="Assets\Scripts\Main\GameStateMachine\Ext\Game" />
      <Folder Include="Assets\Resources\UI\Room" />
      <Folder Include="Assets\Scripts\Main\Bonus" />
@@ -340,6 +355,7 @@
      <Folder Include="Assets\TextMesh Pro\Examples &amp; Extras\Prefabs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
      <Folder Include="Assets\LoadResources\Suriyun" />
+     <Folder Include="Assets\Violet Theme Ui\Colored Icons" />
      <Folder Include="Assets\LoadResources\msVFX_Free Smoke Effects Pack\Demo" />
      <Folder Include="Assets\Scripts\UI\Base\Layer" />
      <Folder Include="Assets\LoadResources\Suriyun\Scripts\Camera Scripts" />
@@ -356,6 +372,7 @@
      <Folder Include="Assets\GabrielAguiarProductions\UniqueProjectilesVol_2\Shaders" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Textures\Cute_Spider" />
      <Folder Include="Assets\LoadResources\Suriyun\UI" />
+     <Folder Include="Assets\Violet Theme Ui\Sliders" />
      <Folder Include="Assets\Scripts\Main\Base\StateMachine" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Materials\Cute_Spider" />
@@ -374,10 +391,13 @@
      <Folder Include="Assets\Scripts\Main\GameStateMachine\Ext" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Materials\Prizon" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne.json" />
+     <Folder Include="Assets\Violet Theme Ui\Prefab\Slider" />
      <Folder Include="Assets\LoadResources\Matthew Guz\Hits Effects FREE\Scene Demo" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Materials" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
      <Folder Include="Assets\LoadResources\Matthew Guz\Hits Effects FREE\Scene Demo\Script" />
+     <Folder Include="Assets\Violet Theme Ui\Prefab\Progress Bar" />
+     <Folder Include="Assets\Violet Theme Ui\Scenes" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.15f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

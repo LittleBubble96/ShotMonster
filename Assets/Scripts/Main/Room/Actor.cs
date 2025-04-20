@@ -36,7 +36,7 @@ public enum CAP_ControlMode
 public class Actor : RecycleObject
 {
     [SerializeField] protected Animator m_animator = null;
-
+    [SerializeField] protected Transform m_hudTransform = null;
     private EActorState actorState = EActorState.None;
     private EActorRoleType actorRoleType = EActorRoleType.None;
 
@@ -81,14 +81,14 @@ public class Actor : RecycleObject
         {
             UpdateSystem(dt);
         }
-
-        if (actorState == EActorState.WaitDestroy)
+    }
+    
+    public virtual void DoUpdateWaitDestroy(float dt)
+    {
+        m_stateTimeCount -= dt;
+        if (m_stateTimeCount <= 0)
         {
-            m_stateTimeCount -= dt;
-            if (m_stateTimeCount <= 0)
-            {
-                actorState = EActorState.Destroy;
-            }
+            actorState = EActorState.Destroy;
         }
     }
 
@@ -330,6 +330,30 @@ public class Actor : RecycleObject
 
     protected virtual void OnWaitDestroy()
     {
+    }
+
+    #endregion
+
+    #region hud
+
+    private HudBase m_hudBase = null;
+    private void InitHud()
+    {
+        
+    }
+    
+    private string GetHudType()
+    {
+        if (actorRoleType == EActorRoleType.Player)
+        {
+            return "PlayerHud";
+        }
+        else if (actorRoleType == EActorRoleType.Monster)
+        {
+            return "MonsterHud";
+        }
+
+        return string.Empty;
     }
 
     #endregion
