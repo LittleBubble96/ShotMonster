@@ -13,16 +13,16 @@ public class HudHelper
         switch (hubState)
         {
             case EHubState.Self:
-                resPath = "UI/SelfHud";
+                resPath = "Hud/SelfHud";
                 break;
             case EHubState.Enemy:
-                resPath = "UI/EnemyHud";
+                resPath = "Hud/EnemyHud";
                 break;
             case EHubState.ReverseEnemy:
-                resPath = "UI/ReverseEnemyHud";
+                resPath = "Hud/ReverseEnemyHud";
                 break;
             default:
-                resPath = "UI/DefaultHud";
+                resPath = "Hud/DefaultHud";
                 break;
         }
         return resPath;

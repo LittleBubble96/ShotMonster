@@ -63,9 +63,6 @@ public class BuffManager : Singleton<BuffManager>
             {
                 return buff.Value;
             }
-            {
-                return buff.Value;
-            }
         }
         return null;
     }

@@ -4,5 +4,6 @@ public partial class ClientFactoryRegisterHelper
     {
         ClientFactory.Instance.GetActorComponentFactory().RegisterType<TargetComponent>(typeof(TargetComponent));
         ClientFactory.Instance.GetActorComponentFactory().RegisterType<AttackComponent>(typeof(AttackComponent));
+        ClientFactory.Instance.GetActorComponentFactory().RegisterType<ProjectileComponent>(typeof(ProjectileComponent));
     }
 }

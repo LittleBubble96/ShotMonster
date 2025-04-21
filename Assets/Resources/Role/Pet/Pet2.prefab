@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_animator: {fileID: 20993172797626169}
+  m_hudTransform: {fileID: 8463800759206533744}
   navMeshAgent: {fileID: 3493647638607616648}
   attackAnimDuration: 0.875
   attackHitTime: 0.6

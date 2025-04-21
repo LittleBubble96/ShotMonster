@@ -10000,7 +10000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 100
-  m_MoveSpeed: 25
+  m_MoveSpeed: 35
 --- !u!1 &4656204943983416048
 GameObject:
   m_ObjectHideFlags: 0

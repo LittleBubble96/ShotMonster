@@ -23,6 +23,8 @@ public class AIController : Actor
         behaviorTree = new BehaviorTree();
         behaviorTree.Init(new BTGenInfo(configItem.AiId),this);
         AgentStart();
+        hudState = EHubState.Enemy;
+
         //停止距离 为 攻击距离
         // navMeshAgent.stoppingDistance = GetAttackDistance();
     }

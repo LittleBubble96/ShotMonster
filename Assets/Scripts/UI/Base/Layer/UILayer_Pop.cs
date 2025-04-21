@@ -18,6 +18,10 @@ public class PopUILayer : UILayerBase
     
     public override void HandleHideUI(UIManager uiManager,UIBase ui)
     {
+        if (_uiStack.IsEmpty)
+        {
+            return;
+        }
         _uiStack.TryPop(out UIBase popUI);
         while (popUI != ui)
         {

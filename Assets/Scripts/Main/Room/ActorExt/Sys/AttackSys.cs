@@ -14,6 +14,11 @@ public class AttackSys : SystemBase
         {
             return;
         }
+        ProjectileComponent projectileComponent = Owner.GetActorComponent<ProjectileComponent>();
+        if (projectileComponent == null)
+        {
+            return;
+        }
         // Owner.SetLayerWeight(1,targetComponent.TargetIsValid() ? 1 : 0);
 
         if (attackComponent.CurrentAttackTime > 0)
@@ -42,7 +47,7 @@ public class AttackSys : SystemBase
                 attackComponent.AttackAnimationKeyFrameTime / attackComponent.TempAnimSpeed)
             {
                 //到攻击关键帧了
-                Attack(attackComponent);
+                Attack(attackComponent,projectileComponent);
                 attackComponent.WaitAttack = false;
             }
             if (attackComponent.CurrentAttackAnimationTime <= 0)
@@ -54,7 +59,7 @@ public class AttackSys : SystemBase
         }
     }
 
-    private void Attack(AttackComponent attackComponent)
+    private void Attack(AttackComponent attackComponent, ProjectileComponent projectileComponent)
     {
         //组件一定存在
         Transform[] attackPoints = attackComponent.GetCurrentMuzzles();
@@ -78,7 +83,7 @@ public class AttackSys : SystemBase
             Vector3 dir = owner.transform.forward;
             dir =  attackPoint.localRotation * dir;
             dir.y = 0;
-            ProjectileManager.Instance.CreateProjectile(attackComponent.ProjectileConfigId,
+            ProjectileManager.Instance.CreateProjectile(projectileComponent.AttrProjectileConfigId,
                 attackPoint.position,
                 dir,attackComponent.GetActor().GetActorId()
                 );

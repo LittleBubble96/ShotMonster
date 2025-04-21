@@ -20,3 +20,14 @@ public enum EActorAttribute
     MaxHP = 2,
     Attack = 3,
 }
+
+//子弹属性类型
+[System.Flags]
+public enum EAttackAttr 
+{
+    Normal = 0,
+    Fire = 1 << 0,
+    Ice = 1 << 1,
+    //毒
+    Poison = 1 << 2,
+}

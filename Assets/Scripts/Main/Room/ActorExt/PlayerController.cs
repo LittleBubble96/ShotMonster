@@ -25,12 +25,15 @@ public class PlayerController : Actor
     {
         TryOrAddActorComponent<AttackComponent>();
         TryOrAddActorComponent<TargetComponent>();
+        TryOrAddActorComponent<ProjectileComponent>();
         InitTargetData();
         InitAttributeData();
         InitAttackData();
+        InitProjectileData();
         characterController = GetComponent<CharacterController>();
         RegisterSystem<AttackSys>();
         RegisterSystem<TargetSystem>();
+        hudState = EHubState.Self;
     }
 
     public override void DoFixedUpdate(float dt)
@@ -196,11 +199,17 @@ public class PlayerController : Actor
         attackComponent.DoubleMuzzles = twoMuzzles;
         attackComponent.TripleMuzzles = threeMuzzles;
         attackComponent.MuzzleCount = 1; //目前等于1
-        attackComponent.ProjectileConfigId = 1;//子弹配置ID
         attackComponent.AttackAnimationTime = shotAnimDuration;
         attackComponent.AttackSpeed = shotSpeed;
         attackComponent.AttackAnimationKeyFrameTime = shotAnimMainFrame;
         attackComponent.CurrentAttackTime = attackComponent.GetFullAttackTime();
+    }
+
+    public void InitProjectileData()
+    {
+        //子弹数据
+        ProjectileComponent projectileComponent = GetActorComponent<ProjectileComponent>();
+       
     }
 
     public void InitTargetData()

@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_animator: {fileID: 2596587729664726639}
+  m_hudTransform: {fileID: 7720579612153529432}
   navMeshAgent: {fileID: 2532536027731232213}
   attackAnimDuration: 0.875
   attackHitTime: 0.3
@@ -124,7 +125,7 @@ Transform:
   m_GameObject: {fileID: 5077912014701880265}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

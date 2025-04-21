@@ -8,6 +8,12 @@ public class SelectBonus_PopupUI : UIBase
     {
         base.OnInit();
         bonusItems = GetComponentsInChildren<SelectBonusItem>();
+       
+    }
+
+    public override void OnShow()
+    {
+        base.OnShow();
         int[] bonusIds = BonusMgr.Instance.GetRandomBonus(GameConst.BonusCount);
         for (int i = 0; i < bonusItems.Length; i++)
         {

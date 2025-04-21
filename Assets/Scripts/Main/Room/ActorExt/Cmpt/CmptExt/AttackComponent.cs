@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class AttackComponent : ActorComponent
 {
-    public int ProjectileConfigId { get; set; }
-    
     public float AttackSpeed { get; set; }
     //临时记录
     public float CurrentAttackTime { get; set; }

@@ -80,15 +80,25 @@ public class Actor : RecycleObject
         if (actorState == EActorState.Play)
         {
             UpdateSystem(dt);
+            UpdateHudState(dt);
         }
     }
     
     public virtual void DoUpdateWaitDestroy(float dt)
     {
+        UpdateHudState(dt);
         m_stateTimeCount -= dt;
         if (m_stateTimeCount <= 0)
         {
             actorState = EActorState.Destroy;
+        }
+    }
+    
+    protected void UpdateHudState(float dt)
+    {
+        if (m_hudBase != null)
+        {
+            m_hudBase.DoUpdate(dt);
         }
     }
 
@@ -277,7 +287,7 @@ public class Actor : RecycleObject
         return 0;
     }
 
-    public float UpdateAttribute(Enum name, float value)
+    public void UpdateAttribute(Enum name, object value)
     {
         if (m_attributes.ContainsKey(name))
         {
@@ -287,9 +297,17 @@ public class Actor : RecycleObject
         {
             m_attributes.Add(name, value);
         }
-
-        return value;
+        OnAttributeChange(name, value);
     }
+
+    protected virtual void OnAttributeChange(Enum name, object value)
+    {
+        if (Equals(name, EActorAttribute.HP))
+        {
+            ChangeHudValue();
+        }
+    }
+
 
 
     #endregion
@@ -337,23 +355,45 @@ public class Actor : RecycleObject
     #region hud
 
     private HudBase m_hudBase = null;
-    private void InitHud()
-    {
-        
-    }
-    
-    private string GetHudType()
-    {
-        if (actorRoleType == EActorRoleType.Player)
-        {
-            return "PlayerHud";
-        }
-        else if (actorRoleType == EActorRoleType.Monster)
-        {
-            return "MonsterHud";
-        }
+    private EHubState m_hudState = EHubState.None;
 
-        return string.Empty;
+    protected EHubState hudState
+    {
+        get { return m_hudState; }
+        set
+        {
+            m_hudState = value;
+            OnHudStateChange(m_hudState);
+        }
+    }
+
+    protected virtual void OnHudStateChange(EHubState state)
+    {
+        if (m_hudBase!= null)
+        {
+            GOtPoolManager.Instance.Return(m_hudBase);
+        }
+        GameManager.Instance.StartCoroutine(GOtPoolManager.Instance.GetAsync<HudBase>(HudHelper.GetHubRes(state),
+            (obj) =>
+            {
+                m_hudBase = obj;
+                if (m_hudBase != null)
+                {
+                    m_hudBase.Init(GetIntAttribute(EActorAttribute.MaxHP));
+                    m_hudBase.transform.SetParent(m_hudTransform);
+                    m_hudBase.transform.localPosition = Vector3.zero;
+                    m_hudBase.transform.localScale = Vector3.one;
+                }
+            }));
+    }
+
+    protected void ChangeHudValue()
+    {
+        int hp = GetIntAttribute(EActorAttribute.HP);
+        if (m_hudBase != null)
+        {
+            m_hudBase.SetValue(hp);
+        }
     }
 
     #endregion

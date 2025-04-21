@@ -10,6 +10,8 @@ public enum EBonusType
     SpeedUpAlways = 2,
     //攻击力永久增加百分之20
     AttackUpAlways = 3,
+    //火球
+    FireBall = 4,
 }
 
 public enum EBonusQuality
@@ -76,6 +78,18 @@ public class BonusConfigItem
                             BonusType = EBonusType.AttackUpAlways, 
                             BonusQuality = EBonusQuality.Color,
                             Param1 = "0.6",
+                            }
+                },
+                {
+                    4,
+                    new BonusConfigItem()
+                        { 
+                            Id = 4, 
+                            Name = "Fire Ball", 
+                            Icon = "Buff1", 
+                            Desc = "Attack Attach Fire", 
+                            BonusType = EBonusType.FireBall, 
+                            BonusQuality = EBonusQuality.Color,
                             }
                 },
             };

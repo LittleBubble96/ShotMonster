@@ -21,7 +21,7 @@ public class AttackRateUpBuff: BaseBuff
         Actor target = RoomManager.Instance.GetActorById(TargetActorId);
         if (target != null)
         {
-            target.UpdateAttribute(EActorAttribute.Attack, attakRate);
+            target.UpdateAttribute(EActorAttribute.Attack, target.GetIntAttribute(EActorAttribute.Attack) * 1 + attakRate);
         }
     }
 }

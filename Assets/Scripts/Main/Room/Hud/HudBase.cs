@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class HudBase : MonoBehaviour
+public class HudBase : RecycleObject
 {
     [SerializeField] private float _duration = 0.5f;
     private Slider slider;
@@ -13,13 +13,14 @@ public class HudBase : MonoBehaviour
     
     public void Init(int max)
     {
-        slider = GetComponent<Slider>();
+        slider = GetComponentInChildren<Slider>();
         if (slider == null)
         {
             Debug.LogError("Slider component not found on HudBase.");
         }
         maxValue = max;
         slider.maxValue = maxValue;
+        slider.value = maxValue;
     }
     
     public void DoUpdate(float dt)
@@ -41,6 +42,11 @@ public class HudBase : MonoBehaviour
                 _endValue = 0;
             }
         }
+        //看向摄像机 并保持平行
+        Vector3 right = Camera.main.transform.right;
+        Vector3 forward = Camera.main.transform.forward;
+        Vector3 up = Vector3.Cross(right, forward);
+        transform.rotation = Quaternion.LookRotation(forward, up);
     }
     
     public void SetValue(int value)
@@ -56,7 +62,7 @@ public class HudBase : MonoBehaviour
         }
         
         _startValue = slider.value;
-        _endValue = value / (float)maxValue;
+        _endValue = value;
         _durationCount = _duration;
     }
 }

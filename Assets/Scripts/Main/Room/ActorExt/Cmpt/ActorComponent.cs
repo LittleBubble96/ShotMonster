@@ -4,6 +4,7 @@ public class ActorComponent : IRecycle
     public void Init(Actor actor)
     {
         this.actor = actor;
+        OnInit();
     }
 
     public void Recycle()
@@ -14,5 +15,10 @@ public class ActorComponent : IRecycle
     public Actor GetActor()
     {
         return actor;
+    }
+
+    protected virtual void OnInit()
+    {
+        
     }
 }
